@@ -18,7 +18,7 @@ class DownloadOptions:
     url: str  # Apple podcasts url
     outdir: str = "./episodes"  # Output directory
     max_episodes: int = None  # Maximum num. of episodes to download
-    only_metadata: bool = False  # Download metadata only if True
+    only_metadata: bool = False  # Only download metadata (name, descr, url)
 
 
 parser = ArgumentParser()
