@@ -5,16 +5,21 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 from dataclasses import dataclass
+from bs4 import BeautifulSoup
 from simple_parsing import ArgumentParser
 
 warnings.filterwarnings("ignore")
+
+
+class FeedNotSupportedError(Exception):
+    pass
 
 
 @dataclass
 class DownloadOptions:
     """Set options for the download."""
 
-    url: str  # Apple podcasts url
+    url: str = "https://podcasts.apple.com/us/podcast/critical-role/id1453805439"  # Apple podcasts url
     outdir: str = "./episodes"  # Output directory
     max_episodes: int = None  # Maximum num. of episodes to download
     only_metadata: bool = False  # Only download metadata (name, descr, url)
@@ -30,9 +35,14 @@ def find_feed(url: str):
     feed = re.findall(
         r"https://www.buzzsprout\.com/[0-9]+",
         str(request.content),
-    )[0]
+    )
 
-    return feed + ".rss"
+    if feed is None:
+        raise FeedNotSupportedError(
+            "Only supported podcast hosting service is Buzzsprout for now."
+        )
+
+    return feed[0] + ".rss"
 
 
 def download_episode(url: str, dir: str):
