@@ -1,4 +1,5 @@
 # Usage
+Only supports podcasts hosted by buzzsprout for now.
 ## Installation
 ```bash
 git clone git+url
