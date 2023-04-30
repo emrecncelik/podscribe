@@ -5,7 +5,6 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 from dataclasses import dataclass
-from bs4 import BeautifulSoup
 from simple_parsing import ArgumentParser
 
 warnings.filterwarnings("ignore")
@@ -28,11 +27,11 @@ args = parser.parse_args()
 
 def find_feed(url: str):
     request = requests.get(url)
-    soup = BeautifulSoup(request.content)
     feed = re.findall(
         r"https://www.buzzsprout\.com/[0-9]+",
-        soup.find(id="shoebox-media-api-cache-amp-podcasts").text,
+        str(request.content),
     )[0]
+
     return feed + ".rss"
 
 

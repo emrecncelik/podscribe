@@ -27,6 +27,9 @@ logger.info("Initializing speech to text model.")
 episodes = [i for i in os.listdir(args.opt.indir) if "." + args.opt.extension in i]
 model = whisper.load_model(args.opt.model)
 
+if not os.path.exists(args.opt.outdir):
+    os.mkdir(args.opt.outdir)
+
 for episode in tqdm(episodes):
     out = os.path.join(args.opt.outdir, episode.replace(args.opt.extension, "json"))
     if os.path.exists(out):
