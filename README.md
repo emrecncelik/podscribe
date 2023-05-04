@@ -2,7 +2,7 @@
 Only supports podcasts hosted by buzzsprout for now.
 ## Installation
 ```bash
-git clone git+url
+git clone git+https://github.com/emrecncelik/podscribe.git
 pip install -r podscribe/requirements.txt
 ```
 ## Download episodes
